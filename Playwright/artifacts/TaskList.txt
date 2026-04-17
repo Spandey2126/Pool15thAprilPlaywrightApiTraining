@@ -1,0 +1,97 @@
+Task 1:
+task for today : 1. create test case to navigate to google.com 2. create test case to search playwright.dev in search box.
+ 
+clicking playwright url and landing on playwright site home page.
+ 
+import { test, expect } from '@playwright/test';
+ 
+test('navigate to google', async ({ page }) => {
+    await page.goto('https://www.google.com');
+    await expect(page).toHaveTitle(/Google/);
+});
+ 
+ 
+Task 2:
+Task -> navigate to Test application echarts under Charts tab -> locate frames for all charts -> for each chart highlight or display on colsole any of chart attributes. 
+
+Task 3:
+task -> forms layout page . write all locating strategies for form layout page using locator syntax rules and user facing locators.
+
+Task 4:
+const basicForm = page.locator('nb-card').filter({hasText:"Basic form"})
+ 
+task -> create const for all frames on forms layout page.
+ 
+
+Task 5:
+test('tool tips', async ({ page }) =>
+{
+  await page.getByTitle('Modal & Overlays').click()
+await page.getByTitle('Tooltip').click()
+ 
+ 
+const toolTipCard = page.locator('nb-card', {hasText:"Tooltip Placements"})
+await toolTipCard.getByRole('button',{name:"Top"}).hover()
+page.getByRole('tooltip')
+const toolTip = await page.locator('nbtooltip').textContent()
+await page.getByRole('tooltip').waitFor({state:'visible'})
+expect(toolTip).toEqual('This is a tooltip')
+const tooltipplace = await expect(toolTipCard.getByRole('button',{name:"Top"})).toHaveAttribute('ng-reflect-position','top')
+ 
+})
+ 
+task for today -> tool tips - starting with tooltips placements , Tooltip With Icon , Colored Tooltips.
+ 
+
+Task 6:
+task -> complete dialog boxes tab on test application.
+
+Task 7: 
+task 1 for webtables: chnage values for row number 4 .
+ 
+task 2 : search for nth(5) changes values on page 3 of webtables.
+ 
+test('web tables', async ({ page }) =>
+{
+  await page.getByTitle('Tables & Data').click()
+await page.getByTitle('Smart Table').click()
+ 
+// 1 get the row by any test
+ 
+const targetRow = page.getByRole('row',{name:"twitter@outlook.com"})
+await targetRow.locator('.nb-edit').click()
+await page.locator('input-editor').getByPlaceholder('Age').clear()
+await page.locator('input-editor').getByPlaceholder('Age').fill('35')
+await page.locator('nb-checkmark').click()
+ 
+// 2 get the row by value in specified column
+ 
+await page.locator('.ng2-smart-pagination-nav').getByText('2').click()
+const targetRowById = page.getByRole('row',{name:"12"}).filter({has :page.locator('td').nth(1).getByText('12')})
+await targetRowById.locator('.nb-edit').click()
+await page.locator('input-editor').getByPlaceholder('E-mail').clear()
+await page.locator('input-editor').getByPlaceholder('E-mail').fill('test@test.com')
+await page.locator('nb-checkmark').click()
+await expect(targetRowById.locator('td').nth(1)).toHaveText('test@test.com')
+
+
+task 8: -> search for First names starting with A , B , M and J(count and names) and arrange first names alphabetically.
+ 
+task 9:-> practice multiple color themes with given code for theme background. check for background colors.
+ 
+task 10:-> select india from drop down on testing website from below URL. https://www.globalsqa.com/demo-site/select-dropdown-menu/
+DropDown Menu - GlobalSQA
+Demo Site | Websites for Automation | DropDown Menu Automation | Functional & Performance Dummy Website | Testing Site | Automation Practice & Trainings
+ 
+task 11: -> for date picker please write code for 2 days from local dates - within same month and 21 days from local date - selection in another month . select one date from common date calendar separate from current date.
+ 
+task 12:-> for Date picker With Range please write code for range of 1 month from local date time.
+ 
+task 13:-> for Temperature sliders on homepage please practice code for mouse movements and 5 set of coordinates for tempguage sliders. for humidity slider please write code for these values 10 , 50 , 100.
+ 
+task 14:-> for electricity consumption write codes for peaks and downfalls for sliders.
+ 
+task 15:-> locate photo manager and transfer all photos to trash . check for availability in trash and blank for pictures in photo manager.
+
+ 
+

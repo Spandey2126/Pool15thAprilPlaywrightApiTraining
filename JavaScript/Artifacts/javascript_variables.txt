@@ -1,0 +1,1372 @@
+In JavaScript, variables are used to store and manage data. They are declared using specific keywords, and their behavior depends on the keyword used, scope, and other factors. Below is a concise overview of variables in JavaScript:
+
+1. Variable Declaration Keywords
+JavaScript provides three main keywords for declaring variables:
+
+var:
+Function-scoped or globally scoped.
+Can be redeclared and updated.
+Hoisted to the top of their scope (initialized as undefined).
+Example:
+
+var x = 10;
+var x = 20; // Redeclaration allowed
+console.log(x); // 20
+Issues: Prone to errors due to hoisting and redeclaration.
+let:
+Block-scoped (limited to the block {} they are defined in).
+Can be updated but not redeclared in the same scope.
+Not hoisted (or hoisted but not initialized, causing a ReferenceError if accessed before declaration).
+Example:
+
+let y = 30;
+y = 40; // Update allowed
+// let y = 50; // Error: Cannot redeclare
+console.log(y); // 40
+const:
+Block-scoped.
+Cannot be updated or redeclared.
+Must be initialized during declaration.
+Note: For objects and arrays, the reference is constant, but their properties/elements can be modified.
+Example:
+
+const z = 50;
+// z = 60; // Error: Assignment to constant
+const obj = { a: 1 };
+obj.a = 2; // Allowed: Modifying object property
+console.log(obj.a); // 2
+2. Scope
+Global Scope: Variables declared outside any function or block, accessible everywhere.
+
+var globalVar = "I'm global";
+console.log(globalVar); // Accessible anywhere
+Function Scope: Variables declared with var inside a function, accessible only within that function.
+
+function test() {
+  var localVar = "I'm local";
+  console.log(localVar); // I'm local
+}
+// console.log(localVar); // Error: localVar is not defined
+Block Scope: Variables declared with let or const inside a block {} (e.g., in loops or conditionals), accessible only within that block.
+
+{
+  let blockVar = "I'm block-scoped";
+  console.log(blockVar); // I'm block-scoped
+}
+// console.log(blockVar); // Error: blockVar is not defined
+3. Hoisting
+Variables declared with var are hoisted to the top of their scope and initialized as undefined.
+let and const are hoisted but not initialized, leading to a "Temporal Dead Zone" (TDZ) until their declaration is reached.
+
+console.log(a); // undefined (hoisted)
+var a = 5;
+
+console.log(b); // ReferenceError: Cannot access 'b' before initialization
+let b = 10;
+4. Data Types
+Variables in JavaScript can hold any data type, as it is a dynamically typed language:
+
+Primitive Types: number, string, boolean, undefined, null, bigint, symbol.
+Reference Types: object (including arrays, functions, etc.).
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+let num = 42; // number
+let str = "Hello"; // string
+let arr = [1, 2, 3]; // array (object)
+let obj = { key: "value" }; // object
+5. Naming Rules
+Variable names must start with a letter, underscore _, or dollar sign $.
+Subsequent characters can include letters, digits, underscores, or dollar signs.
+Case-sensitive (e.g., myVar and MyVar are different).
+Cannot use reserved keywords (e.g., let, const, function).
+Example:
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+let myVar = 1; // Valid
+let _private = 2; // Valid
+let $price = 3; // Valid
+// let 1var = 4; // Invalid
+6. Best Practices
+Use let or const instead of var to avoid hoisting and scope issues.
+Prefer const by default, use let only when reassignment is needed.
+Choose meaningful variable names (e.g., userName instead of u).
+Avoid global variables to prevent naming conflicts.
+Initialize variables when declaring them to avoid undefined.
+7. Additional Notes
+Undeclared Variables: Assigning a value to an undeclared variable (without var, let, or const) creates a global variable in non-strict mode, which is bad practice.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+function bad() {
+  undeclared = 100; // Global variable (avoid this)
+}
+Strict Mode: Using "use strict"; at the start of a script or function prevents undeclared variables and enforces better coding practices.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+"use strict";
+undeclared = 100; // ReferenceError: undeclared is not defined
+If you need examples, specific use cases, or clarification on any aspect (e.g., hoisting, scope, or strict mode), let me know!
+
+
+
+
+
+
+
+
+1.3s
+bigint data type in javascript
+
+
+
+
+The BigInt data type in JavaScript is a primitive type introduced in ECMAScript 2020 to represent arbitrary-precision integers, allowing you to work with numbers larger than the safe integer limit of the Number type (2^53 - 1 or 9007199254740991). Below is a concise overview of BigInt in JavaScript:
+
+1. Key Characteristics
+Purpose: Handles integers of any size, unlike the Number type, which has a precision limit.
+Range: Unlimited (constrained only by memory).
+Type: Primitive, distinct from Number.
+Syntax: Created by appending n to an integer literal or using the BigInt() constructor.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const bigIntLiteral = 12345678901234567890n; // Literal syntax
+const bigIntFromNumber = BigInt(12345678901234567890); // Constructor
+const bigIntFromString = BigInt("12345678901234567890"); // From string
+2. Creating BigInt
+Literal Syntax: Append n to an integer.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+let a = 42n;
+console.log(typeof a); // "bigint"
+BigInt Constructor: Convert a number, string, or other valid input to BigInt.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+let b = BigInt("9007199254740992");
+console.log(b); // 9007199254740992n
+Invalid Inputs: Non-integer strings or invalid inputs throw a SyntaxError.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+// BigInt(1.5); // RangeError: The number 1.5 cannot be converted to a BigInt
+// BigInt("abc"); // SyntaxError: Cannot convert abc to a BigInt
+3. Operations
+Arithmetic: Supports standard operators (+, -, *, /, %, **) between BigInt values.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+let x = 10n;
+let y = 3n;
+console.log(x + y); // 13n
+console.log(x * y); // 30n
+console.log(x ** y); // 1000n
+console.log(x / y); // 3n (integer division, truncates decimal)
+Division: Always truncates toward zero (no fractional results).
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(10n / 3n); // 3n
+Bitwise Operations: Work as expected with BigInt (e.g., &, |, ^, ~, <<, >>).
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(10n & 3n); // 2n
+4. Comparison
+Equality: Strict (===) and loose (==) comparisons work, but BigInt and Number are distinct types.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(1n === 1); // false (different types)
+console.log(1n == 1); // true (loose comparison coerces)
+console.log(2n > 1n); // true
+Sorting: Can be compared in arrays or sorting operations.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log([3n, 1n, 2n].sort()); // [1n, 2n, 3n]
+5. Limitations and Gotchas
+No Mixing with Number: Cannot directly use BigInt with Number in arithmetic operations.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+// 1n + 1; // TypeError: Cannot mix BigInt and other types
+Workaround: Convert one type explicitly.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+let result = 1n + BigInt(1); // 2n
+let result2 = Number(1n) + 1; // 2
+No Math Methods: Math functions (e.g., Math.sqrt) don’t work with BigInt.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+// Math.sqrt(16n); // TypeError
+JSON Serialization: JSON.stringify doesn’t natively support BigInt.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+// JSON.stringify(123n); // TypeError: BigInt value can't be serialized
+Workaround: Convert to string or use a custom replacer.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+JSON.stringify(123n.toString()); // '"123"'
+No Floating-Point Support: BigInt only represents integers.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+// 1.5n; // SyntaxError
+6. Type Checking
+Use typeof to identify BigInt.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(typeof 123n); // "bigint"
+console.log(typeof BigInt(123)); // "bigint"
+7. Use Cases
+Large Numbers: Cryptography, financial calculations, or IDs exceeding Number.MAX_SAFE_INTEGER.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const hugeNumber = 9999999999999999999n;
+console.log(hugeNumber + 1n); // 10000000000000000000n
+Precise Integer Arithmetic: When precision is critical.
+Timestamps or Counters: For high-precision counters in databases or systems.
+8. Best Practices
+Use BigInt only when necessary, as it’s slower than Number for smaller values.
+Explicitly convert between BigInt and Number to avoid type errors.
+Be cautious with external data (e.g., JSON) to handle BigInt correctly.
+Use the n suffix for readability when working with literals.
+Example
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const maxSafeInt = BigInt(Number.MAX_SAFE_INTEGER); // 9007199254740991n
+const bigValue = maxSafeInt + 1n;
+console.log(bigValue); // 9007199254740992n
+console.log(bigValue + 100n); // 9007199254741092n
+If you need clarification, examples for specific use cases (e.g., cryptography, serialization), or details on performance, let me know!
+
+
+
+
+
+
+
+
+1.7s
+symbol data type in javascript
+
+
+
+
+The Symbol data type in JavaScript is a primitive type introduced in ECMAScript 2015 (ES6) to create unique identifiers that can be used as object property keys or for other purposes requiring guaranteed uniqueness. Below is a concise overview of the Symbol data type:
+
+1. Key Characteristics
+Uniqueness: Every Symbol is unique, even if created with the same description.
+Primitive Type: Not an object, but a primitive value.
+Immutable: Cannot be changed once created.
+Purpose: Primarily used as unique object property keys to avoid naming collisions.
+Syntax: Created using the Symbol() function or Symbol.for().
+2. Creating Symbols
+Using Symbol():
+Creates a new, unique Symbol each time.
+Optional description (string) for debugging (does not affect uniqueness).
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const sym1 = Symbol();
+const sym2 = Symbol("description");
+const sym3 = Symbol("description");
+console.log(sym2 === sym3); // false (always unique)
+console.log(typeof sym1); // "symbol"
+Using Symbol.for():
+Creates or retrieves a Symbol from the global Symbol registry using a key (string).
+If a Symbol with the given key exists, it’s returned; otherwise, a new one is created.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const symA = Symbol.for("key");
+const symB = Symbol.for("key");
+console.log(symA === symB); // true (same Symbol from registry)
+Using Symbol.keyFor():
+Retrieves the key for a globally registered Symbol.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const sym = Symbol.for("key");
+console.log(Symbol.keyFor(sym)); // "key"
+console.log(Symbol.keyFor(Symbol())); // undefined (not in registry)
+3. Use as Object Property Keys
+Unique Property Keys: Symbols prevent accidental property name collisions in objects.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const mySymbol = Symbol("id");
+const obj = {
+  [mySymbol]: 123,
+  name: "test",
+};
+console.log(obj[mySymbol]); // 123
+console.log(obj.name); // "test"
+Non-Enumerable: Symbol properties are not included in for...in, Object.keys(), or Object.getOwnPropertyNames().
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(Object.keys(obj)); // ["name"]
+console.log(Object.getOwnPropertySymbols(obj)); // [Symbol(id)]
+Accessing Symbol Properties: Must use the exact Symbol reference.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const anotherSymbol = Symbol("id");
+console.log(obj[anotherSymbol]); // undefined (different Symbol)
+4. Built-in Symbols
+JavaScript provides predefined Symbol values (well-known Symbols) for customizing object behavior, accessible via the Symbol object. Examples:
+
+Symbol.iterator: Defines an object’s iteration behavior (used by for...of).
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const arr = [1, 2, 3];
+const iterator = arr[Symbol.iterator]();
+console.log(iterator.next()); // { value: 1, done: false }
+Symbol.toStringTag: Customizes the string description of an object.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const obj = { [Symbol.toStringTag]: "MyObject" };
+console.log(obj.toString()); // "[object MyObject]"
+Others: Symbol.hasInstance, Symbol.match, Symbol.split, etc.
+5. Comparison and Type Checking
+Equality: Symbols are only equal to themselves.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const sym1 = Symbol("desc");
+const sym2 = Symbol("desc");
+console.log(sym1 === sym2); // false
+console.log(sym1 === sym1); // true
+Type Checking:
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(typeof Symbol()); // "symbol"
+6. Limitations and Gotchas
+No String Conversion: Symbols cannot be implicitly converted to strings.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+// console.log("ID: " + Symbol()); // TypeError: Cannot convert a Symbol to string
+Workaround: Use .toString() or .description.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(Symbol("id").toString()); // "Symbol(id)"
+console.log(Symbol("id").description); // "id"
+JSON Serialization: Symbols are ignored in JSON.stringify.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const obj = { [Symbol("id")]: 123 };
+console.log(JSON.stringify(obj)); // "{}"
+Not Constructor: Cannot use new with Symbol.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+// new Symbol(); // TypeError: Symbol is not a constructor
+7. Use Cases
+Unique Property Keys: Avoid conflicts in objects, especially in libraries or shared code.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const librarySymbol = Symbol("libraryData");
+obj[librarySymbol] = "sensitive data";
+Custom Behavior: Define special methods (e.g., Symbol.iterator) for custom objects.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const myIterable = {
+  *[Symbol.iterator]() {
+    yield 1;
+    yield 2;
+  },
+};
+for (let value of myIterable) {
+  console.log(value); // 1, 2
+}
+Private-like Properties: Symbols can simulate private properties (though not truly private, as they’re accessible via Object.getOwnPropertySymbols).
+Global Registry: Use Symbol.for() for shared Symbols across modules or contexts.
+8. Best Practices
+Use descriptive strings for debugging (e.g., Symbol("myProperty")).
+Store Symbols in variables or constants to reuse them, as they’re not retrievable by description alone.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const MY_KEY = Symbol("myKey");
+obj[MY_KEY] = "value";
+Use Symbol.for() only when global sharing is needed (e.g., across modules).
+Avoid relying on Symbols for true privacy; use private fields (#field) for that purpose (ES2022+).
+Example
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const uniqueKey = Symbol("unique");
+const obj = {
+  [uniqueKey]: "secret",
+  regular: "visible",
+};
+console.log(obj[uniqueKey]); // "secret"
+console.log(Object.keys(obj)); // ["regular"]
+console.log(Object.getOwnPropertySymbols(obj)); // [Symbol(unique)]
+If you need specific examples (e.g., custom iterators, library usage), clarification, or details on well-known Symbols, let me know!
+
+
+
+
+
+
+
+
+1.9s
+operators in javascript 
+
+
+
+
+JavaScript operators are special symbols or keywords used to perform operations on operands (values or variables). Below is a concise overview of the main types of operators in JavaScript, organized by category, with examples.
+
+1. Arithmetic Operators
+Perform mathematical calculations.
+
++: Addition
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(5 + 3); // 8
+-: Subtraction
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(5 - 3); // 2
+*: Multiplication
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(5 * 3); // 15
+/: Division
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(6 / 2); // 3
+%: Modulus (remainder)
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(5 % 2); // 1
+**: Exponentiation
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(2 ** 3); // 8
+++: Increment (increases by 1)
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+let x = 5;
+x++;
+console.log(x); // 6
+--: Decrement (decreases by 1)
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+let y = 5;
+y--;
+console.log(y); // 4
+2. Assignment Operators
+Assign values to variables.
+
+=: Assign
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+let a = 10;
++=: Add and assign
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+let b = 5;
+b += 3; // b = b + 3
+console.log(b); // 8
+-=, *=, /=, %=, **=: Subtract, multiply, divide, modulus, or exponentiate and assign
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+let c = 10;
+c *= 2; // c = c * 2
+console.log(c); // 20
+3. Comparison Operators
+Compare values and return a boolean (true or false).
+
+==: Equal (loose equality, coerces types)
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(5 == "5"); // true
+===: Strict equal (no type coercion)
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(5 === "5"); // false
+!=: Not equal (loose)
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(5 != "5"); // false
+!==: Strict not equal
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(5 !== "5"); // true
+>, <, >=, <=: Greater than, less than, greater than or equal, less than or equal
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(5 > 3); // true
+console.log(5 <= 5); // true
+4. Logical Operators
+Combine or manipulate boolean values.
+
+&&: Logical AND (true if both operands are true)
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(true && false); // false
+||: Logical OR (true if at least one operand is true)
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(true || false); // true
+!: Logical NOT (inverts boolean value)
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(!true); // false
+??: Nullish coalescing (returns right operand if left is null or undefined)
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+let x = null;
+console.log(x ?? "default"); // "default"
+5. Bitwise Operators
+Operate on binary representations of numbers.
+
+&: Bitwise AND
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(5 & 3); // 1 (0101 & 0011 = 0001)
+|: Bitwise OR
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(5 | 3); // 7 (0101 | 0011 = 0111)
+^: Bitwise XOR
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(5 ^ 3); // 6 (0101 ^ 0011 = 0110)
+~: Bitwise NOT
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(~5); // -6 (~0101 = 1010)
+<<, >>, >>>: Left shift, right shift, unsigned right shift
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(5 << 1); // 10 (0101 << 1 = 1010)
+6. String Operators
++: String concatenation
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log("Hello" + " World"); // "Hello World"
++=: Concatenate and assign
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+let str = "Hello";
+str += " World";
+console.log(str); // "Hello World"
+7. Conditional (Ternary) Operator
+Shorthand for if-else statements.
+
+condition ? exprIfTrue : exprIfFalse
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+let age = 18;
+let status = age >= 18 ? "Adult" : "Minor";
+console.log(status); // "Adult"
+8. Type Operators
+typeof: Returns the type of a value
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(typeof 42); // "number"
+console.log(typeof Symbol()); // "symbol"
+instanceof: Checks if an object is an instance of a constructor
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log([] instanceof Array); // true
+9. Spread/Rest Operator
+...: Spread (expands elements) or Rest (collects elements)
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+// Spread
+const arr = [1, 2, 3];
+console.log([...arr, 4, 5]); // [1, 2, 3, 4, 5]
+// Rest
+const [a, b, ...rest] = [1, 2, 3, 4];
+console.log(rest); // [3, 4]
+10. Other Operators
+Comma Operator (,): Evaluates multiple expressions, returns the last one
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+let x = (1, 2, 3);
+console.log(x); // 3
+Optional Chaining (?.): Safely accesses properties/methods if the operand exists
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+let obj = { a: { b: 1 } };
+console.log(obj?.a?.b); // undefined (no error)
+Delete Operator: Removes a property from an object
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const obj = { a: 1 };
+delete obj.a;
+console.log(obj.a); // undefined
+Void Operator (void): Evaluates an expression and returns undefined
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(void(1 + 2)); // undefined
+11. Operator Precedence
+Operators have different priorities. For example, * has higher precedence than +. Use parentheses () to control order.
+
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(2 + 3 * 4); // 14 (3 * 4 first)
+console.log((2 + 3) * 4); // 20 (2 + 3 first)
+12. BigInt Considerations
+Arithmetic and bitwise operators work with BigInt, but BigInt and Number cannot be mixed.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+console.log(5n + 3n); // 8n
+// console.log(5n + 3); // TypeError
+13. Best Practices
+Use === and !== instead of == and != to avoid type coercion issues.
+Use parentheses for clarity in complex expressions.
+Prefer ?? over || when checking for null/undefined to avoid falsy value pitfalls.
+Be cautious with bitwise operators due to limited practical use in modern JavaScript.
+Test optional chaining and nullish coalescing in older environments for compatibility.
+If you need examples for specific operators, clarification on precedence, or use cases (e.g., bitwise operations, optional chaining), let me know!
+
+
+
+
+
+
+
+
+2.3s
+spread  and rest operator in JavaScript
+
+
+
+
+The spread and rest operators in JavaScript both use the same syntax (...), but they serve opposite purposes depending on the context. They were introduced in ECMAScript 2015 (ES6) and are widely used for working with arrays, objects, and function arguments. Below is a concise explanation of each, with examples.
+
+1. Spread Operator (...)
+The spread operator expands elements of an iterable (like arrays or strings) or properties of an object into individual elements or properties. It is used in places where multiple elements or key-value pairs are expected.
+
+Use Cases for Spread
+Copying Arrays: Creates a shallow copy of an array.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const arr = [1, 2, 3];
+const copy = [...arr];
+console.log(copy); // [1, 2, 3]
+copy.push(4); // Original array unchanged
+console.log(arr); // [1, 2, 3]
+Merging Arrays: Combines multiple arrays into one.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const arr1 = [1, 2];
+const arr2 = [3, 4];
+const merged = [...arr1, ...arr2];
+console.log(merged); // [1, 2, 3, 4]
+Copying Objects: Creates a shallow copy of an object.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const obj = { a: 1, b: 2 };
+const copyObj = { ...obj };
+console.log(copyObj); // { a: 1, b: 2 }
+Merging Objects: Combines multiple objects into one. Later properties override earlier ones with the same key.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const obj1 = { a: 1, b: 2 };
+const obj2 = { b: 3, c: 4 };
+const mergedObj = { ...obj1, ...obj2 };
+console.log(mergedObj); // { a: 1, b: 3, c: 4 }
+Passing Arguments to Functions: Spreads an array into individual arguments.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const numbers = [1, 2, 3];
+function sum(a, b, c) {
+  return a + b + c;
+}
+console.log(sum(...numbers)); // 6
+Spreading Strings: Converts a string into an array of characters.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const str = "hello";
+console.log([...str]); // ["h", "e", "l", "l", "o"]
+Key Points
+Shallow Copy: Only copies top-level elements/properties; nested objects/arrays are still references.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const obj = { a: { b: 1 } };
+const copy = { ...obj };
+copy.a.b = 2;
+console.log(obj.a.b); // 2 (nested object is shared)
+Works with any iterable (e.g., arrays, strings, Set, Map).
+Cannot be used in contexts expecting a single value (e.g., let x = ...arr; // SyntaxError).
+2. Rest Operator (...)
+The rest operator collects multiple elements or properties into a single variable. It is used in function parameters, array destructuring, or object destructuring to gather "the rest" of the elements/properties.
+
+Use Cases for Rest
+Function Parameters: Collects all remaining arguments into an array.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+function sum(...numbers) {
+  return numbers.reduce((total, num) => total + num, 0);
+}
+console.log(sum(1, 2, 3, 4)); // 10
+console.log(sum(5)); // 5
+Array Destructuring: Collects remaining elements into an array.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const [first, second, ...rest] = [1, 2, 3, 4, 5];
+console.log(first); // 1
+console.log(second); // 2
+console.log(rest); // [3, 4, 5]
+Object Destructuring: Collects remaining properties into a new object.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+const { a, b, ...rest } = { a: 1, b: 2, c: 3, d: 4 };
+console.log(a); // 1
+console.log(b); // 2
+console.log(rest); // { c: 3, d: 4 }
+Key Points
+Must Be Last: In function parameters or destructuring, rest must be the last parameter/element.
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+// function invalid(...a, b) {} // SyntaxError
+// const [...rest, last] = [1, 2, 3]; // SyntaxError
+Creates a new array (for function args or array destructuring) or object (for object destructuring).
+Useful for creating flexible functions that accept variable numbers of arguments.
+3. Spread vs. Rest
+Spread: Expands (spreads out) an iterable/object into individual elements/properties.
+Used in array literals, object literals, or function calls.
+Example: [...arr] or {...obj}.
+Rest: Collects multiple elements/properties into a single array/object.
+Used in function parameters or destructuring.
+Example: function(...args) or const {a, ...rest}.
+Context Determines Role: The same ... syntax is spread or rest based on where it’s used (expanding vs. collecting).
+4. Best Practices
+Use spread for immutable operations (e.g., copying/merging arrays or objects) to avoid mutating originals.
+Use rest for flexible function arguments or to extract specific properties/elements while collecting others.
+Be cautious with large data structures, as spread/rest creates shallow copies, which can impact performance.
+Ensure compatibility in older environments (e.g., older browsers may not support object spread/rest fully).
+5. Examples Combining Spread and Rest
+Function with Rest and Spread:
+javascript
+
+Collapse
+
+Wrap
+
+Run
+
+Copy
+function combine(...arrays) {
+  return [...arrays].flat();
+}
+console.log(combine([1, 2], [3, 4], [5])); // [1, 2, 3, 4, 5]
+Object Destructuring with Rest and Spread:
+
+const obj = { a: 1, b: 2, c: 3 };
+const { a, ...rest } = obj;
+const newObj = { ...rest, d: 4 };
+console.log(newObj); // { b: 2, c: 3, d: 4 }
+
+6. Limitations
+Shallow Copying: Both spread and rest create shallow copies, so nested objects/arrays share references.
+Object Spread/Rest Browser Support: Supported in modern browsers but may require polyfills for older ones (e.g., pre-2018 environments).
+Rest in Functions: Only one rest parameter is allowed, and it must be the last parameter.
+Spread with Non-Iterables: Spread only works with iterables or objects (e.g., ...123 throws a TypeError).
+
+npx playwright test --project=chromium -g 'first test' --headed
