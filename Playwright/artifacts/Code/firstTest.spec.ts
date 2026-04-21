@@ -1,153 +1,111 @@
-import { test, expect } from '@playwright/test';
+import {expect, test} from '@playwright/test'
 
-test('test', async ({ page }) => {
-  await page.goto('https://www.globalsqa.com/demo-site/');
-  await page.getByRole('link', { name: 'Tabs' }).click();
-  await page.locator('iframe[name="aswift_2"]').contentFrame().getByRole('button', { name: 'Close ad' }).click();
-  await page.getByRole('paragraph').filter({ hasText: 'Discover moreharmonica' }).locator('iframe').contentFrame().getByText('Mauris mauris ante, blandit').click();
-  await page.getByRole('paragraph').filter({ hasText: 'Discover moreharmonica' }).locator('iframe').contentFrame().getByRole('tab', { name: 'Section 1' }).click();
-  await page.getByRole('paragraph').filter({ hasText: 'Discover moreharmonica' }).locator('iframe').contentFrame().getByRole('tab', { name: 'Section 2' }).locator('span').click();
-  await page.getByRole('paragraph').filter({ hasText: 'Discover moreharmonica' }).locator('iframe').contentFrame().getByRole('tabpanel', { name: 'Section' }).click();
-  await page.getByRole('paragraph').filter({ hasText: 'Discover moreharmonica' }).locator('iframe').contentFrame().getByRole('tab', { name: 'Section 3' }).locator('span').click();
-  await page.getByRole('paragraph').filter({ hasText: 'Discover moreharmonica' }).locator('iframe').contentFrame().getByText('Nam enim risus, molestie et,').click();
-  await page.getByRole('paragraph').filter({ hasText: 'Discover moreharmonica' }).locator('iframe').contentFrame().getByText('List item one').click();
-  await page.getByRole('paragraph').filter({ hasText: 'Discover moreharmonica' }).locator('iframe').contentFrame().getByRole('tab', { name: 'Section 4' }).locator('span').click();
-  await page.getByRole('paragraph').filter({ hasText: 'Discover moreharmonica' }).locator('iframe').contentFrame().getByText('Cras dictum. Pellentesque').click();
-  await page.getByRole('paragraph').filter({ hasText: 'Discover moreharmonica' }).locator('iframe').contentFrame().getByText('Suspendisse eu nisl. Nullam').click();
+test.beforeEach(async ({ page }) => {
+  await page.goto('http://localhost:4200/');
+  await page.getByTitle('Forms').click;
+  await page.getByTitle('Form Layouts').click;
+    
 });
 
+test('Locator syntax rules', async ({ page }) => 
+    {
+        // by Tag Name
+        page.locator('input').first().click()
 
---------------------------------------
+        // by ID
+        page.locator('#inputEmail1')
+
+        //by class value
+        page.locator('.shape-rectangle')
+
+        // by full class value
+        page.locator('[class="input-full-width size-medium status-basic shape-rectangle nb-transition"]')
+
+        // by attribute
+        page.locator('[placeholder="Email"]')
+        page.getByPlaceholder('Email')
+
+        page.locator('[placeholder="Jane Doe"]')
+        page.getByPlaceholder('Jane Doe')
+
+        // by combing diffrent locators
+        page.locator('input[placeholder="Email"]')
+        page.locator('[placeholder="Email"][class="input-full-width size-medium status-basic shape-rectangle nb-transition"]')
+
+        // by xpath
+        page.locator('//*[@id="inputEmail1"]')
+
+        // by partial text match
+        page.locator(':text("Using")')
+
+        // by exact text match
+        page.locator(':text-is("Using the Grid")')
+    })
+
+test('User Facing Locators', async ({ page }) => 
+    {
+        await page.getByRole('textbox',{name:"Email"}).first().click()
+        await page.getByRole('button',{name:"Sign in"}).first().click()
+
+        await page.getByLabel('Email').first().click()
+        await page.getByLabel('Email address').first().click()
+        await page.getByPlaceholder('Jane Doe').click()
+
+        await page.getByText('Using the Grid').isVisible()
+        await page.getByText('Form without labels').isVisible()
+
+        await page.getByTitle('IoT Dashboard').click()
+        await page.getByTitle('Form Layouts').click()        
+        await page.getByTestId('inputEmail1').click()   
+        
+        await page.getByRole('checkbox',{name:"Remember me"}).check()
+        await page.getByRole('checkbox',{name:"Remember me"})
+
+        await page.getByRole('checkbox',{name:"Check me out"}).check()
+
+        await page.getByPlaceholder('Email').fill('example@test.com')
+        //await page.locator('nb-card').getByTestId('exampleInputPassword1').fill('Welcome@123')
+        await page.getByPlaceholder('Password').fill('Welcome@123')
+        await page.getByRole('button',{name:'Submit'}).click()
 
 
 
-test('test', async ({ page }) => {
-  await page.goto('https://www.globalsqa.com/demo-site/');
-  await page.getByRole('link', { name: 'Tabs' }).click();
-  await page.locator('iframe').nth(3).contentFrame().getByText('Mauris mauris ante, blandit').click();
-  await page.getByRole('tab', { name: 'Re-Size Accordion' }).click();
-  await page.getByRole('tab', { name: 'Toggle Icons' }).click();
-  await page.getByRole('tab', { name: 'Re-Size Accordion' }).click();
-  await page.locator('iframe').nth(5).contentFrame().getByText('Mauris mauris ante, blandit').click();
-  await page.locator('iframe').nth(5).contentFrame().locator('.ui-resizable-handle').first().click();
-  await page.locator('iframe').nth(5).contentFrame().locator('.ui-resizable-handle').first().click({
-    modifiers: ['ControlOrMeta']
-  });
-  await page.locator('iframe').nth(5).contentFrame().locator('.ui-resizable-handle').first().click();
-  await page.locator('iframe').nth(5).contentFrame().getByText('Resize the outer container: Section 1 Mauris mauris ante, blandit et, ultrices').press('ControlOrMeta+ArrowRight');
-  await page.locator('iframe').nth(5).contentFrame().getByText('Resize the outer container: Section 1 Mauris mauris ante, blandit et, ultrices').press('ControlOrMeta+ArrowRight');
-  await page.locator('iframe').nth(5).contentFrame().getByText('Resize the outer container: Section 1 Mauris mauris ante, blandit et, ultrices').press('ControlOrMeta+ArrowRight');
-  await page.locator('iframe').nth(5).contentFrame().getByText('Resize the outer container: Section 1 Mauris mauris ante, blandit et, ultrices').press('ControlOrMeta+ArrowRight');
-  await page.locator('iframe').nth(5).contentFrame().getByText('Resize the outer container: Section 1 Mauris mauris ante, blandit et, ultrices').press('ControlOrMeta+ArrowRight');
-  await page.locator('iframe').nth(5).contentFrame().getByText('Resize the outer container: Section 1 Mauris mauris ante, blandit et, ultrices').press('ControlOrMeta+ArrowRight');
-  await page.locator('iframe').nth(5).contentFrame().locator('.ui-resizable-handle').first().click();
-  await page.locator('iframe').nth(5).contentFrame().locator('.ui-resizable-handle').first().click();
-  await page.locator('iframe').nth(5).contentFrame().locator('.ui-resizable-handle.ui-resizable-se').click();
-  await page.locator('iframe').nth(5).contentFrame().getByRole('tab', { name: 'Section 2' }).locator('span').click();
-  await page.locator('iframe').nth(5).contentFrame().locator('.ui-resizable-handle').first().click();
-  await page.locator('iframe').nth(5).contentFrame().locator('.ui-resizable-handle').first().click({
-    modifiers: ['ControlOrMeta']
-  });
-  await page.locator('iframe').nth(5).contentFrame().locator('.ui-resizable-handle').first().click();
-  await page.locator('iframe').nth(5).contentFrame().locator('.ui-resizable-handle').first().click();
-  await page.locator('iframe').nth(5).contentFrame().locator('.ui-resizable-handle').first().click();
-  await page.getByRole('tab', { name: 'Re-Size Accordion' }).click();
-});
 
+    })
 
-
----------------------------------------------------------
-
-await page.goto('https://www.globalsqa.com/demo-site/');
-  await page.getByRole('link', { name: 'Tabs' }).click();
-  await page.getByRole('tab', { name: 'Re-Size Accordion' }).click();
-  await page.getByRole('tab', { name: 'Toggle Icons' }).click();
-  await page.getByRole('paragraph').filter({ hasText: 'Discover' }).locator('iframe').contentFrame().getByRole('tab', { name: 'Section 1' }).locator('span').click();
-  await page.getByRole('paragraph').filter({ hasText: 'Discover' }).locator('iframe').contentFrame().getByRole('tab', { name: 'Section 1' }).click();
-  await page.getByRole('paragraph').filter({ hasText: 'Discover' }).locator('iframe').contentFrame().getByRole('tab', { name: 'Section 1' }).locator('span').click();
-  await page.getByRole('paragraph').filter({ hasText: 'Discover' }).locator('iframe').contentFrame().getByRole('tab', { name: 'Section 2' }).locator('span').click();
-  await page.getByRole('paragraph').filter({ hasText: 'Discover' }).locator('iframe').contentFrame().getByRole('tab', { name: 'Section 3' }).locator('span').click();
-  await page.getByRole('paragraph').filter({ hasText: 'Discover' }).locator('iframe').contentFrame().getByRole('tab', { name: 'Section 4' }).locator('span').click();
+test('Locating Child elements', async ({ page }) =>
+{
+    await page.locator('nb-card nb-radio:text-is("Option 1")').click()
+    await page.locator('nb-card').locator('nb-radio').locator(':text-is("Option 2")').click()
+    await page.locator('nb-card').getByRole('button',{name:"Sign in"}).first().click()
+   
 })
 
+test('Locating parent elements', async ({ page }) =>
+{
+    await page.locator(('nb-card'),{hasText:"Using the Grid"}).getByRole("textbox",{name:"Email"}).click()
+   
+})
 
+test('Reusing Locators', async ({ page }) =>
+{
+    const basicForm = page.locator('nb-card').filter({hasText:"Basic form"})
+    const emailField = basicForm.getByRole('textbox',{name:"Email"})
+    await emailField.fill('test@test.com')
+    const emailValue = emailField.inputValue()
+    expect(emailValue).toEqual('test@test.com')        
+    await basicForm.getByRole('textbox',{name:"Password"}).fill('Welcome@123')
+})
 
+test('extracting values ', async ({ page }) =>
+{
+    //single text extraction
+    const basicForm = page.locator('nb-card').filter({hasText:"Basic form"})
+    const buttonText = await basicForm.locator('button').textContent()
+    expect(buttonText).toEqual('Submit')
 
-------------------------------
+    //all text values
 
-
-test('test', async ({ page }) => {
-  await page.goto('https://www.globalsqa.com/demo-site/');
-  await page.getByRole('link', { name: 'Slider' }).click();
-  await page.getByRole('tab', { name: 'Range' }).click();
-  await page.locator('iframe').nth(1).contentFrame().locator('#slider-range').click();
-  await expect(page.locator('iframe').nth(1).contentFrame().getByRole('textbox', { name: 'Price range:' })).toHaveValue('$75 - $250');
-  await expect(page.locator('iframe').nth(1).contentFrame().getByRole('textbox', { name: 'Price range:' })).toHaveValue('$75 - $339');
-  await expect(page.locator('iframe').nth(1).contentFrame().getByRole('textbox', { name: 'Price range:' })).toHaveValue('$75 - $428');
-  await expect(page.locator('iframe').nth(1).contentFrame().getByRole('textbox', { name: 'Price range:' })).toHaveValue('$35 - $428');
-});
-
---------------------
-
-tool pip
-
- await page.goto('https://www.globalsqa.com/demo-site/');
-  await page.getByRole('link', { name: 'ToolTip' }).click();
-  await page.locator('iframe[name="aswift_2"]').contentFrame().getByRole('button', { name: 'Close ad' }).click();
-  await page.locator('iframe').first().contentFrame().getByRole('link', { name: 'Vienna, Austria' }).click();
-  await page.goto('https://www.globalsqa.com/demo-site/tooltip/');
-  await page.locator('iframe').nth(1).contentFrame().getByRole('link', { name: 'St. Stephen\'s Cathedral' }).click();
-});
-
-
--------------------------
-
-test('test', async ({ page }) => {
-  await page.goto('https://www.globalsqa.com/demo-site/alertbox/');
-  await page.getByRole('button', { name: 'Try it' }).click();
-  await page.getByRole('button', { name: 'Try it' }).click();
-  await page.getByRole('tab', { name: 'Confirmation Box' }).click();
-  await page.getByRole('button', { name: 'Try it' }).click();
-  await page.getByRole('button', { name: 'Try it' }).click();
-  await page.getByRole('tab', { name: 'Prompt Box' }).click();
-  await page.getByRole('button', { name: 'Try it' }).click();
-  await page.getByRole('button', { name: 'Try it' }).click();
-});
-
-
- await row2Data.waitFor({ state: 'visible' });
-    console.log('all data=' + await row2Data.allTextContents());
-
-    await expect(await row2Data.locator('td').nth(0)).toHaveText('ajit');
-    await expect(await row2Data.locator('td').nth(1)).toHaveText('ajit@gmail.com');
-    await expect(await row2Data.locator('td').nth(2)).toHaveText('12345');
-
-
--------------------------------------------------------
-
-import { test, expect } from '@playwright/test';
-
-test('test', async ({ page }) => {
-  await page.goto('https://www.globalsqa.com/demo-site/frames-and-windows/');
-  const page1Promise = page.waitForEvent('popup');
-  await page.getByRole('link', { name: 'Click Here' }).click();
-  const page1 = await page1Promise;
-  const page2Promise = page1.waitForEvent('popup');
-  await page1.getByRole('link', { name: 'Click Here' }).click();
-  const page2 = await page2Promise;
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
+})
 
 
