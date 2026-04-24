@@ -11,9 +11,11 @@ test('Locator syntax rules', async ({ page }) =>
     {
         // by Tag Name
         page.locator('input').first().click()
+        page.locator('input').nth(0).click()
 
         // by ID
         page.locator('#inputEmail1')
+        page.locator('[id="inputEmail1"]')
 
         //by class value
         page.locator('.shape-rectangle')
@@ -34,7 +36,8 @@ test('Locator syntax rules', async ({ page }) =>
 
         // by xpath
         page.locator('//*[@id="inputEmail1"]')
-
+        page.locator('//input[@placeholder="Jane Doe"]')
+       
         // by partial text match
         page.locator(':text("Using")')
 

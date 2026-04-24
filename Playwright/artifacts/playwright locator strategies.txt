@@ -306,3 +306,5 @@ While XPath (e.g., `page.locator('//input[@id="username"]')`) is supported in Pl
 
 ### Conclusion
 User-facing locators in Playwright, such as `getByRole`, `getByText`, `getByLabel`, `getByPlaceholder`, `getByAltText`, and `getByTitle`, are designed to create stable, maintainable, and accessible tests by focusing on how users interact with a webpage. By prioritizing these over CSS or XPath, you align tests with user behavior, reduce flakiness, and improve resilience against UI changes. For best results, combine these locators with Playwright’s auto-waiting, chaining, and assertion features, and use tools like the Playwright Test Generator to identify optimal locators.
+
+All locators are mentioned but user facing locators are most reliable and preferred in playwright framework.

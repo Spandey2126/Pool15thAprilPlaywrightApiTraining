@@ -12,7 +12,7 @@ test('navigate to google', async ({ page }) => {
  
  
 Task 2:
-Task -> navigate to Test application echarts under Charts tab -> locate frames for all charts -> for each chart highlight or display on colsole any of chart attributes. 
+Task -> navigate to Test application echarts under Charts tab -> locate frames for all charts -> for each chart highlight or display on console any of chart attributes. 
 
 Task 3:
 task -> forms layout page . write all locating strategies for form layout page using locator syntax rules and user facing locators.
