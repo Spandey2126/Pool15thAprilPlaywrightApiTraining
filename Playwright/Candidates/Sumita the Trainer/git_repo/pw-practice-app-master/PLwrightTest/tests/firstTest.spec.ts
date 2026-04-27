@@ -71,15 +71,16 @@ test('User Facing Locators', async ({ page }) =>
         await page.getByPlaceholder('Password').fill('Welcome@123')
         await page.getByRole('button',{name:'Submit'}).click()
 
-
-
+        await page.getByRole('button',{name:'Submit'}).isDisabled()
 
     })
 
 test('Locating Child elements', async ({ page }) =>
 {
     await page.locator('nb-card nb-radio:text-is("Option 1")').click()
+
     await page.locator('nb-card').locator('nb-radio').locator(':text-is("Option 2")').click()
+
     await page.locator('nb-card').getByRole('button',{name:"Sign in"}).first().click()
    
 })
@@ -98,7 +99,19 @@ test('Reusing Locators', async ({ page }) =>
     const emailValue = emailField.inputValue()
     expect(emailValue).toEqual('test@test.com')        
     await basicForm.getByRole('textbox',{name:"Password"}).fill('Welcome@123')
+
+    const optionRadiogroup = page.locator('nb-card').locator('nb-radio')
+    const option1 = await optionRadiogroup.locator(':text-is("Option 1")')
+    const option2 = await optionRadiogroup.locator(':text-is("Option 2")')
+    const option3 = await optionRadiogroup.locator(':text-is("Option 3")')
+    expect(option3).toBeEnabled()
+
+    await option1.click()
+    await option2.click()
+    await option3.click()
+
 })
+
 
 test('extracting values ', async ({ page }) =>
 {
