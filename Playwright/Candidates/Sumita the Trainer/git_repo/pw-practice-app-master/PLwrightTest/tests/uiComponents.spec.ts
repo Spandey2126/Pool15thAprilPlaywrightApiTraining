@@ -142,7 +142,7 @@ const dateToAssert = `${expectedMonthShot} ${expectedDate},${expectedYear}`//jul
 
 let calenderMonthYear = await page.locator('nb-calendar-view-mode').textContent()
 const expectedMonthYear = `${expectedMonthLong} ${expectedYear}`
-while(!calenderMonthYear.includes(expectedMonthYear))
+while(calenderMonthYear && !calenderMonthYear.includes(expectedMonthYear))
 {
   await page.locator('nb-calendar-pageable-navigation[data-name="chevron-right"]').click()
   calenderMonthYear = await page.locator('nb-calendar-view-mode').textContent()
@@ -169,8 +169,11 @@ const tempBox = page.locator('[tabtitle="Temperature"] ngx-temperature-dragger')
 await tempBox.scrollIntoViewIfNeeded()
 
 const box = await tempBox.boundingBox()
-const x = box.x + box.width /2
-const y = box.y + box.width /2
+if (!box) {
+  throw new Error('Bounding box is null');
+}
+const x = box.x + box.width / 2
+const y = box.y + box.width / 2
 
 await page.mouse.move(x,y)
 await page.mouse.down()

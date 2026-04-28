@@ -81,18 +81,17 @@ task 8: -> search for First names starting with A , B , M and J(count and names)
 task 9:-> practice multiple color themes with given code for theme background. check for background colors.
  
 task 10:-> select india from drop down on testing website from below URL. https://www.globalsqa.com/demo-site/select-dropdown-menu/
-DropDown Menu - GlobalSQA
-Demo Site | Websites for Automation | DropDown Menu Automation | Functional & Performance Dummy Website | Testing Site | Automation Practice & Trainings
+
+task 11:-> locate Accepted Elements and Propagation and write test cases for drag and drop feature.
  
-task 11: -> for date picker please write code for 2 days from local dates - within same month and 21 days from local date - selection in another month . select one date from common date calendar separate from current date.
+task 12: -> for date picker please write code for 2 days from local dates - within same month and 21 days from local date - selection in another month . select one date from common date calendar separate from current date.
  
-task 12:-> for Date picker With Range please write code for range of 1 month from local date time.
+task 13:-> for Date picker With Range please write code for range of 1 month from local date time.
  
-task 13:-> for Temperature sliders on homepage please practice code for mouse movements and 5 set of coordinates for tempguage sliders. for humidity slider please write code for these values 10 , 50 , 100.
+task 14:-> for Temperature sliders on homepage please practice code for mouse movements and 5 set of coordinates for tempguage sliders. for humidity slider please write code for these values 10 , 50 , 100.
  
-task 14:-> for electricity consumption write codes for peaks and downfalls for sliders.
+task 15:-> for electricity consumption write codes for peaks and downfalls for sliders.
  
-task 15:-> locate photo manager and transfer all photos to trash . check for availability in trash and blank for pictures in photo manager.
 
  
 
