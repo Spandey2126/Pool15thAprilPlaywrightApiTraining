@@ -1,5 +1,7 @@
 Task 1:
-task for today : 1. create test case to navigate to google.com 2. create test case to search playwright.dev in search box.
+task for today : 
+1. create test case to navigate to google.com 
+2. create test case to search playwright.dev in search box.
  
 clicking playwright url and landing on playwright site home page.
  
@@ -22,7 +24,6 @@ const basicForm = page.locator('nb-card').filter({hasText:"Basic form"})
  
 task -> create const for all frames on forms layout page.
  
-
 Task 5:
 test('tool tips', async ({ page }) =>
 {
@@ -47,7 +48,7 @@ Task 6:
 task -> complete dialog boxes tab on test application.
 
 Task 7: 
-task 1 for webtables: chnage values for row number 4 .
+task 1 for webtables: change values for row number 4 .
  
 task 2 : search for nth(5) changes values on page 3 of webtables.
  

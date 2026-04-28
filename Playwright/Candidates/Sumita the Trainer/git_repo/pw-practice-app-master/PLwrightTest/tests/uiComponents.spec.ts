@@ -13,30 +13,6 @@ await page.getByTitle('Form Layouts').click()
 
 })
 
-test('lists and drop downs', async ({ page }) =>
-{
-    const dropDownMenu = page.locator('ngx-header nb-select')
-    await dropDownMenu.click()
-    page.getByRole('list') // ul tag
-    page.getByRole('listitem') // lI tag
-
-    //const options 
-    const optionList = page.locator('nb-option-list option-list')
-    await expect(optionList).toHaveText(["Light","Dark","Cosmic"," Corporate"])
-    await optionList.filter({hasText:"Cosmic"}).click()
-    const header = page.locator('nb-layout-header')
-    await expect(header).toHaveCSS('background-color','rgb(50,50,89)')
-
-    const colors ={
-
-      "Light" :"rgb(255,255,255)",
-      "Dark" :"rgb(34,43,69)",
-      "Cosmic" : "rgb(50,50,89)",
-      "Corporate" :"rgb(255,255,255)"
-    }
-
-})
-
 test('tool tips', async ({ page }) =>
 {
   await page.getByTitle('Modal & Overlays').click()
@@ -48,6 +24,8 @@ const toolTip = await page.locator('nbtooltip').textContent()
 await page.getByRole('tooltip').waitFor({state:'visible'})
 expect(toolTip).toEqual('This is a tooltip')
 const tooltipplace = await expect(toolTipCard.getByRole('button',{name:"Top"})).toHaveAttribute('ng-reflect-position','top')
+
+await page.getByRole('tooltip').waitFor({state:'hidden'})
 
 })
 
@@ -65,6 +43,30 @@ page.on('dialog',dialog =>
 
 await page.getByRole('table').locator('tr',{hasText:"mdo@gmail.com"}).locator('.nb-trash').click()
 await expect(page.locator('table tr').first()).not.toHaveText('"mdo@gmail.com"')
+
+})
+
+test('lists and drop downs', async ({ page }) =>
+{
+    const dropDownMenu = page.locator('ngx-header nb-select')
+    await dropDownMenu.click()
+    page.getByRole('list') // ul tag
+    //page.getByRole('listitem') // lI tag
+
+    //const options 
+    const optionList = page.locator('nb-option-list option-list')
+    await expect(optionList).toHaveText(["Light","Dark","Cosmic"," Corporate"])
+    await optionList.filter({hasText:"Cosmic"}).click()
+    const header = page.locator('nb-layout-header')
+    await expect(header).toHaveCSS('background-color','rgb(50,50,89)')
+
+    const colors ={
+
+      "Light" :"rgb(255,255,255)",
+      "Dark" :"rgb(34,43,69)",
+      "Cosmic" : "rgb(50,50,89)",
+      "Corporate" :"rgb(255,255,255)"
+    }
 
 })
 

@@ -121,6 +121,7 @@ test('extracting values ', async ({ page }) =>
     expect(buttonText).toEqual('Submit')
 
     //all text values
+    //task : extract all the text values on the buttons from all cards and print them in console
 
 })
 
