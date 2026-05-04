@@ -86,7 +86,7 @@ task 11:-> locate Accepted Elements and Propagation and write test cases for dra
  
 task 12: -> for date picker please write code for 2 days from local dates - within same month and 21 days from local date - selection in another month . select one date from common date calendar separate from current date.
  
-task 13:-> for Date picker With Range please write code for range of 1 month from local date time.
+task 13:-> for Date picker With Range please write code for range of 1 month from local date time. write test case for Datepicker With Disabled Min Max Values for checking the boundary conditions.
  
 task 14:-> for Temperature sliders on homepage please practice code for mouse movements and 5 set of coordinates for tempguage sliders. for humidity slider please write code for these values 10 , 50 , 100.
  

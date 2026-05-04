@@ -123,14 +123,14 @@ for(let age of ages)
 
 test('date picker', async ({ page }) =>
 {
- await page.getByTitle('Forms').click()
+await page.getByTitle('Forms').click()
 await page.getByTitle('Datepicker').click()
 
 const calenderInputField = page.getByPlaceholder('Form Picker')
 await calenderInputField.click()
 
-await page.locator('[class="day-cell ng-star-inserted"]').getByText('26',{exact:true}).click()
-await expect(calenderInputField).toHaveValue('Aug 26,2025')
+await page.locator('[class="day-cell ng-star-inserted"]').getByText('30',{exact:true}).click()
+await expect(calenderInputField).toHaveValue('Apr 30,2026')
 
 let date = new Date()
 date.setDate(date.getDate() + 14)
